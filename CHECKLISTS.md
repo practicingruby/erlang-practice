@@ -4,16 +4,22 @@
 [X] Get a working Erlang installation
 [X] Use the REPL
 [ ] Set up readline in REPL if possible
-[ ] Run programs from command line
+[X] Run programs from command line
 [ ] Read a stack trace
 [ ] Configure editor
-[ ] Print some inspect output
+[X] Print some inspect output
 [ ] Write a unit test
 [ ] Try out some debugging tools
+[X] Read PE Ch 1
+[X] Read PE Ch 2
+[ ] Read PE Ch 3
+[ ] Read PE Ch 4
+[ ] Do PE Ch 2 exercises
+[ ] Do PE Ch 3 exercises
+[ ] Do PE Ch 4 exercises
+[ ] Learn the different statement separators (. , ;)
 [ ] Write a small toy program to practice all of the above
     (Maybe solve a code kata?)
-[ ] Read the first few chapters of Programming Erlang and 
-    try out a couple exercises 
 ```
 
 ## Projects
