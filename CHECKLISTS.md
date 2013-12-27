@@ -1,8 +1,9 @@
 ## Preliminaries
 
 ```
-[ ] Get a working Erlang installation
-[ ] Use the REPL
+[X] Get a working Erlang installation
+[X] Use the REPL
+[ ] Set up readline in REPL if possible
 [ ] Run programs from command line
 [ ] Read a stack trace
 [ ] Configure editor
