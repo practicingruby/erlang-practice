@@ -1,5 +1,5 @@
 -module(hello).
--export([start/0]).
+-export([greet/1]).
 
-start() ->
-  io:format("Hello World~n").
+greet(Name) ->
+  io:format("Hello ~s!!!!!~n", [Name]).
