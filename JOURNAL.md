@@ -1,10 +1,14 @@
 ## December 26, 2013
 
+**Total practice time: 30 minutes**
+
 * Picked up a copy of "Programming Erlang, Second Edition" and browsed 
 through it a bit.
 * Added some checklists to CHECKLISTS.md
 
 ## December 27, 2013
+
+**Total practice time: 60 minutes**
 
 * Worked through the first two chapters of "Programming Erlang", typing in the
 code examples as I went.
@@ -18,6 +22,8 @@ directly explained in CH2 of the book.
 don't know what each is used for. (Will need to learn that)
 
 ## January 1, 2014
+
+**Total practice time: 90 minutes**
 
 * While working on exercises, remembered what it's like to have helpful compile 
 time errors (i.e. things like variable X is unused).
