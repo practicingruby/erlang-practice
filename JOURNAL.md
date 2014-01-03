@@ -82,3 +82,157 @@ an individual variable.
 ** exception error: no match of right hand side value [{house,{number,43},{name,"Mom"}},
                                                        {house,{number,38},{name,"Gramma"}}]
 ```
+
+## January 2, 2014
+
+* Attempted to get history working from previous sessions in erlang shell, but
+did not succeed. However, did learn about `rlwrap` in the process, which seems
+generally useful and gives Ctrl+R reverse lookup in `erl` (or anything!).
+
+* Extraction by pattern matching is called *unpacking* in PE.
+
+* Function clauses are separated by semicolons, each has a head and a body
+separated by the arrow. The head is made up of a function name and patterns,
+the body is made up of expressions.
+
+* To write a very simple unit test, it is sufficient to use pattern matching
+(as shown below), but PE recommends looking into the test frameworks
+described in the Erlang docs.
+
+```erlang
+  test() ->
+    12  = area({rectangle}, 3, 4),
+    144 = area({square, 12}),
+    tests_worked.
+```
+
+* I was reminded of how powerful pattern matching is for overloaded function
+definitions -- this is something we lack in Ruby, and it leads to lots of
+cumbersome looking argument processing.
+
+* Decided my editor setup is good enough for now, which is plain vanilla 
+Vim with syntax highlighting. May revisit this later when I build something
+more interesting though.
+
+* Turns out that the way to implement constant-like things in Erlang
+is via macros, but they won't work on the shell. I was trying to extract
+a PI constant in the area example. Unsure whether this is a practical 
+limitation in erlang, or whether it is something that has an easy 
+workaround / alternative. Within the scope of module definitions,
+`define` / `include` work fine though. (NOTE: This was a diversion
+not covered in PE Ch 4, just something I was curious about)
+
+* My current understanding of Erlang's punctuation is that a period represents 
+the end of a complete statement, the semicolons separate clauses, and comma
+separate expressions. More-or-less the same thing is said here:
+http://stackoverflow.com/a/14074747 -- I'm not 100% sure this is accurate
+but it seems close enough and makes reading code a whole lot easier for me.
+The last time I looked at Erlang I had no real conception of what
+each of these punctuation marks did, which made writing code really painful.
+PE describes the semantics as being similar to English, which kind of
+makes sense.
+
+* Possible common idiom in Erlang for doing summations:
+
+```erlang
+total([H|T]) -> some_function(H) + total(T);
+total([]) -> 0.
+```
+
+* The concept of a Fun is equivalent to Ruby's procs, but with Erlang
+function semantics (i.e. you can still do overloading via pattern matching).
+
+* Erlang has common list functions like map, filter, etc.
+
+* Erlang uses `=:=` as an equality test.
+
+* Fun example of returning higher order functions:
+
+```
+43> MakeTest = fun(L) -> (fun(X) -> lists:member(X, L) end) end.
+#Fun<erl_eval.6.80484245>
+44> IsFruit = MakeTest(Fruit).
+#Fun<erl_eval.6.80484245>
+45> IsFruit(pear).
+true
+46> IsFruit(apple).
+true
+47> IsFruit(dog).
+```
+
+* The `import` statement allows calling certain functions from an 
+external module directly. This is something I always miss in Ruby.
+
+* Aside on pp59 of PE about how Joe programs is really nice, talking
+about "growing" software rather than thinking it out up front, and
+fast feedback loop between writing and tinkering.
+
+* Erlang has list comprehensions, which I *love*. E.g.
+
+```erlang
+[2*X || X <- L].
+[2,4,6,8,10]
+
+[X || {a, X} <- [{a,1},{b,2},{c,3},{a,4},hello,"wow"]].
+[1,4]
+
+% this one melts my mind a bit.
+perms([]) -> [[]];
+perms(L)  -> [[H|T] || H <- L, T <- perms(L--[H])].
+```
+
+* Have to think about what it's like to have lists rather than arrays as the
+fundamental ordered collection -- this is a difference between Erlang and Ruby
+and I'm unsure whether the performance differences cause practical issues
+or are more theoretical in nature. For example, PE pp61 specifically talks
+about things like infix append operator (`++`) being inefficient. Supposed
+to be covered more in pp70.
+
+* Kind of neat that Erlang shell autotruncates large datasets:
+
+```erlang
+3> lib_misc:pythag(200).
+[{3,4,5},
+ {4,3,5},
+ {5,12,13},
+ {6,8,10},
+ {7,24,25},
+ {8,6,10},
+ {8,15,17},
+ {9,12,15},
+ {9,40,41},
+ {10,24,26},
+ {11,60,61},
+ {12,5,13},
+ {12,9,15},
+ {12,16,20},
+ {12,35,37},
+ {13,84,85},
+ {14,48,50},
+ {15,8,17},
+ {15,20,25},
+ {15,36,39},
+ {16,12,20},
+ {16,30,34},
+ {16,63,65},
+ {18,24,30},
+ {18,80,82},
+ {20,15,25},
+ {20,21,...},
+ {20,...},
+ {...}|...]
+```
+
+* Built-in-functions (BIFs) are used for things that can't be implemented
+in Erlang, would be very inefficient to do so, or need to interact with
+the OS. All of them are used as if they were on the module erlang, but
+many are autoimported for direct use. Not all BIFs are described in PE
+book, but they're listed on Erlang's man page and online.
+
+* Guards are another thing I wish we had in Ruby, they do some prefiltering
+on arguments and enhance pattern matching. When guards are used in expressions
+rather than at the head of functions, they evaluate to true or false. Lots of
+details about guard semantics starting on pp64-65. I remember this
+being a somewhat complex feature of Erlang.
+
+
