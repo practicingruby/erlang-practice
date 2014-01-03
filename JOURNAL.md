@@ -85,6 +85,8 @@ an individual variable.
 
 ## January 2, 2014
 
+**Total practice time: 180 minutes**
+
 * Attempted to get history working from previous sessions in erlang shell, but
 did not succeed. However, did learn about `rlwrap` in the process, which seems
 generally useful and gives Ctrl+R reverse lookup in `erl` (or anything!).
@@ -234,5 +236,41 @@ on arguments and enhance pattern matching. When guards are used in expressions
 rather than at the head of functions, they evaluate to true or false. Lots of
 details about guard semantics starting on pp64-65. I remember this
 being a somewhat complex feature of Erlang.
+
+## January 3, 2013
+
+* Guards are limited to a subset of Erlang expressions, and user-defined functions
+cannot be called from them. This is to ensure that guards remain side-effect
+free and will always terminate.
+
+* In guard expressions, semicolon means OR, and comma means AND.
+
+* andalso/orelse do short circuit boolean evaluation, and/or evaluates 
+  both sides.
+
+* Like Ruby, Erlang has a very powerful case statement; it 
+uses guards + patterns.
+
+* In erlang leaving out a catchall case in an if expression will result
+in an exception being raised. This is where a `true -> ...` guard comes
+in handy.
+
+* Rules for natural list building are on PE pp70, but previous examples (except
+for the quick sort one) didn't have the described problem. The rules are basically 
+that you should always append to the head of a list, and if this results in your
+list being built backwards, then you can use `lists:reverse` to very efficiently swap
+the order. In other words, most uses of `++` can be avoided, at the
+occasional cost of clarity. The `odds_and_evens` example on pp71 shows lists
+that need to be reversed.
+
+* Accumulator on pp71 is an example of how to avoid processing a list multiple
+times, which is something I always seem to ignore in Ruby, but always show
+up in functional programming tutorials. For whatever reason, the concept
+of accumulators always seems pedantic and awkward to me, but I suppose it
+is useful to know the technique when optimization is needed.
+
+* With recursion being the main way of doing everything in Erlang, it does
+get tedious to define a trivial base case for each function, but I suppose it
+does make it easy to see what the final return type will be.
 
 

@@ -12,7 +12,7 @@
 [X] Read PE Ch 1
 [X] Read PE Ch 2
 [X] Read PE Ch 3
-[ ] Read PE Ch 4
+[X] Read PE Ch 4
 [X] Do PE Ch 2 exercises
 [X] Do PE Ch 3 exercises
 [ ] Do PE Ch 4 exercises
@@ -29,7 +29,7 @@
      Also, stress importance of a good intro resource or book.
      Note that I had a head start on Erlang from dabbling with it
      in the past, but the process would be the same, just slower
-     if I hadn't.)
+     if I hadn't. Also note how I treated most examples as exercises)
 [ ] Establish a daily practice routine checklist
 ```
 
