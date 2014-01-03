@@ -239,6 +239,8 @@ being a somewhat complex feature of Erlang.
 
 ## January 3, 2013
 
+**Total practice time: 75 minutes**
+
 * Guards are limited to a subset of Erlang expressions, and user-defined functions
 cannot be called from them. This is to ensure that guards remain side-effect
 free and will always terminate.
@@ -273,4 +275,5 @@ is useful to know the technique when optimization is needed.
 get tedious to define a trivial base case for each function, but I suppose it
 does make it easy to see what the final return type will be.
 
-
+* When pattern matching, `5.0 = 5` fails, and `5.0 =:= 5` evaluates as `false`.
+What's the correct way to compare floats and ints by value?
