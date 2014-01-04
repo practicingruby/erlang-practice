@@ -1,8 +1,28 @@
 -module(lib_misc).
--export([for/3, qsort/1, pythag/1, perms/1, max/2, odds_and_evens/1]).
+-export([for/3, qsort/1, pythag/1, perms/1, 
+         max/2, odds_and_evens/1, my_tuple_to_list/1,
+         my_time_func/1, my_date_func/0]).
 
 for(Max, Max, F) -> [F(Max)];
 for(I, Max, F)   -> [F(I) | for(I+1, Max, F)].
+
+my_tuple_to_list({}) -> [];
+my_tuple_to_list(T) -> 
+  [erlang:element(1, T) | my_tuple_to_list(erlang:delete_element(1, T))].
+
+my_time_func(F) ->
+  {MegaS@T1, S@T1, MicroS@T1 } = erlang:now(),
+  F(),
+  {MegaS@T2, S@T2, MicroS@T2 } = erlang:now(),
+
+  (MegaS@T2 - MegaS@T1)*1000000 + (S@T2 - S@T1) + (MicroS@T2 - MicroS@T1)/1000000.
+
+my_date_func() ->
+  {Year, Month, Day}       = erlang:date(),
+  {Hour, Minutes, Seconds} = erlang:time(),
+
+  io:format("~B-~B-~B ~B:~B:~B~n", [Year, Month, Day, Hour, Minutes, Seconds]).
+
 
 % example of guards
 max(X,Y) when X > Y -> X;
@@ -41,5 +61,4 @@ odds_and_evens_acc([H|T], Odds, Evens) ->
   end;
 
 odds_and_evens_acc([], Odds, Evens) ->
-  {lists:reverse(Odds), lists:reverse(Evens)}.
-      
+  {lists:reverse(Odds), lists:reverse(Evens)}. 

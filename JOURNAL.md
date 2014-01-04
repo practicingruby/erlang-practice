@@ -277,3 +277,23 @@ does make it easy to see what the final return type will be.
 
 * When pattern matching, `5.0 = 5` fails, and `5.0 =:= 5` evaluates as `false`.
 What's the correct way to compare floats and ints by value?
+
+* The erlang module is (very roughly) analogous to Ruby's kernel module... all
+sorts of global utility functions.
+
+* Working through the exercises at the end of PE Ch4 gave me a nice introduction
+to lots of primitive erlang features, but also left me wondering whether what
+their high level alternatives are. The cost of simplicity is that sometimes
+"easy" tasks feel a bit more complicated than they need to be because you're
+working with such bare constructs. Still, the appealing aspect is that
+the code is definitely easier to reason about in the end. This is a design
+aesthetic that I've been consistently split-minded about, whenever comparing
+Ruby to functional languages or minimal scripting languages like Lua. One thing
+I am curious about studying is to what extent these issues feel bothersome when
+working on larger projects than what is typically covered in intro tutorials --
+I don't have a good guess at that.
+
+* I should probably find someone who knows Erlang fairly well to review my
+Ch4 exercises, as I think there are probably better idioms than the ones I used.
+
+

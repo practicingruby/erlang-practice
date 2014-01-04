@@ -29,7 +29,8 @@
      Also, stress importance of a good intro resource or book.
      Note that I had a head start on Erlang from dabbling with it
      in the past, but the process would be the same, just slower
-     if I hadn't. Also note how I treated most examples as exercises)
+     if I hadn't. Also note how I treated most examples as exercises,
+     also note about asking for help)
 [ ] Establish a daily practice routine checklist
 ```
 
