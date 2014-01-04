@@ -239,7 +239,7 @@ being a somewhat complex feature of Erlang.
 
 ## January 3, 2013
 
-**Total practice time: 75 minutes**
+**Total practice time: 150 minutes**
 
 * Guards are limited to a subset of Erlang expressions, and user-defined functions
 cannot be called from them. This is to ensure that guards remain side-effect
