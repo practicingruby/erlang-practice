@@ -237,7 +237,7 @@ rather than at the head of functions, they evaluate to true or false. Lots of
 details about guard semantics starting on pp64-65. I remember this
 being a somewhat complex feature of Erlang.
 
-## January 3, 2013
+## January 3, 2014
 
 **Total practice time: 150 minutes**
 
@@ -296,4 +296,81 @@ I don't have a good guess at that.
 * I should probably find someone who knows Erlang fairly well to review my
 Ch4 exercises, as I think there are probably better idioms than the ones I used.
 
+## January 5, 2014
 
+**Total Practice Time: 60 mins **
+
+- I had skimmed Ch6 on Jan 4, but didn't count it as reading the chapter because
+  I wasn't near a computer, nor did I reason through each example in detail. To
+  read properly is to attempt to implement what is described before seeing the
+  code when possible (even if it's just in your head), or to look at a piece of
+  code and explain it to yourself before reading the prose. It's not the same
+  as just listening to the author talk and looking at the code samples that
+  emerge from their head, you need to synthesize them into your own
+  thought process. 
+  
+  This bootstrapping process is what real reading looks like,
+  as compared to skimming. It needs to be a two way conversation, complete
+  with questions, tangents, and diversions along the way. It does not
+  however need a formal structure, unless you find that it helps.
+  At a minimum, you need to be able to write code or work out traces on
+  pencil and paper, as well as be able to write or type notes as you go
+  to be seriously reading, though.
+
+- Topic for PE Ch5 is Records and Maps. Records are really just a way
+  of giving names to elements in a tuple, and are meant for a fixed number
+  elements that you have names for in advance. Their definitions need
+  to be provided in header files, and cannot be defined in the shell.
+
+- I am reminded of the fact that immutable data structures do not necessarily
+need to be awkward to manipulate. Personally I find Erlang's syntax for 
+this very reasonable:
+
+```erlang
+1> X1 = #todo{status=urgent, text="Fix errata in book"}.
+#todo{status = urgent,who = joe,text = "Fix errata in book"}
+2> #todo{status = Who, text = Text } = X1.
+#todo{status = urgent,who = joe,text = "Fix errata in book"}
+3> Who.
+urgent
+4> Text.
+"Fix errata in book"
+4> X1#todo.text.
+"Fix errata in book"
+5> X1#todo.status.
+urgent
+6> X1#todo.who.
+joe
+7> X2 = X1#todo{status=done}.
+#todo{status = done,who = joe,text = "Fix errata in book"}
+```
+
+- Erlang records are very close to my idea of what a "minimal struct" might
+look like -- they're probably useful for wrapping arguments and results in
+functions.
+
+- Like everything else, extraction and pattern matching can be done in
+function headings. This is a concept that is extremely powerful and
+seems very consistent in Erlang, but I still haven't gotten in the 
+habit of remembering it.
+
+- I wonder if it possible to recast a record into a new record type. 
+(could not easily google an answer for this, and it's probably a bad 
+practice, but I'm just wondering how you build a new record in a 
+different type from the data in another type).
+
+- It looks like one of the main features of Erlang that I was interested in
+  learning about in the PE book (Maps) are not released in any public
+  version of Erlang yet, nor is there even source available to build it
+  from. I may be wrong about that, but if not it's a huge difference from
+  something like Ruby where at the very least all development is done
+  in the open. I understand future proofing the book but there should
+  at least have been a caveat mentioned somewhere that the feature
+  is currently vaporware.
+
+- Studying the rest of Ch5 is unfortunately not that useful because
+Maps are not released yet. Further study of Erlang's `dict` library
+may be worthwhile if we really need functionality similar to a Ruby
+hash, but it's API looks awkward at a glance:
+http://www.techrepublic.com/article/working-with-dictionaries-in-erlang/ 
+-- also should look at `proplists`.
