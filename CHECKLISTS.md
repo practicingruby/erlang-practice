@@ -8,6 +8,8 @@ in advance. They can either be book exercises or stuff
 from other sources, but they should be 
 self-verifiable for correctness.
 
+See also: http://www.erlang.org/course/exercises.html
+
 2. Work through book reading and more exercises (90 mins)
 
 Jumping around chapters is OK, but reading whole chapters
@@ -45,6 +47,7 @@ day. Reflect on what was learned today. (30 mins)
 [X] Do PE Ch 2 exercises
 [X] Do PE Ch 3 exercises
 [X] Do PE Ch 4 exercises
+[ ] Do PE Ch 6 exercises
 [X] Learn the different statement separators (. , ;)
 [X] Figure out what a "function clause" is... does that
     mean a whole function, anything between punctuation, etc?

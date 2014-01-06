@@ -1,10 +1,23 @@
 -module(lib_misc).
 -export([for/3, qsort/1, pythag/1, perms/1, 
          max/2, odds_and_evens/1, my_tuple_to_list/1,
-         my_time_func/1, my_date_func/0]).
+         my_time_func/1, my_date_func/0, sqrt/1, my_file_read/1]).
 
 for(Max, Max, F) -> [F(Max)];
 for(I, Max, F)   -> [F(I) | for(I+1, Max, F)].
+
+
+my_file_read(File) ->
+  case file:read_file(File) of
+    {ok, Bin} -> Bin;
+    {error, Reason} -> error({"Couldn't read file", Reason})
+  end.
+
+
+sqrt(X) when X < 0 ->
+  error({squareRootNegativeArgument, X});
+sqrt(X) ->
+  math:sqrt(X).
 
 my_tuple_to_list({}) -> [];
 my_tuple_to_list(T) -> 

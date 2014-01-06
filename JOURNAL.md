@@ -298,7 +298,7 @@ Ch4 exercises, as I think there are probably better idioms than the ones I used.
 
 ## January 5, 2014
 
-**Total Practice Time: 60 mins **
+**Total Practice Time: 180 mins **
 
 - I had skimmed Ch6 on Jan 4, but didn't count it as reading the chapter because
   I wasn't near a computer, nor did I reason through each example in detail. To
@@ -374,3 +374,62 @@ may be worthwhile if we really need functionality similar to a Ruby
 hash, but it's API looks awkward at a glance:
 http://www.techrepublic.com/article/working-with-dictionaries-in-erlang/ 
 -- also should look at `proplists`.
+
+- Pervasive pattern matching means defensive programming is built in to Erlang:
+  If you clearly specify the valid arguments and results from a function, all
+  invalid uses of your APIs will be caught automatically.
+
+- Never return values from functions that are called with invalid APis, let them
+  crash! (They're not recoverable errors).
+
+- Erlang has three ways of explicit error generation: `exit`, `throw`, and `error`.
+  `exit` is a hard halt, which notifies all linked processes of the failure
+  and sends them a shutdown message. `throw` is for raising errors that could
+  concievably be caught and managed, `error` is for "crashing" failures
+  that the callers are not expected to handle.
+
+- There are two ways of catching exceptions: `try/catch`, and plain `catch`.
+
+- Using `try/catch`, you can use pattern matching (surprise surpise!) and guards
+  to detect and handle different kinds of exceptions.
+
+- Using `catch` is lower level, and converts the error into a tuple directly. It
+  gives a lot of detail for `error`-raised exceptions, including a stack trace.
+
+- Like using Ruby's `raise`, the Erlang `error` function gives an opportunity to
+  give more specific and helpful error messages upon failure. But in the case of
+  Erlang, the message is an arbitrary structure rather than an 
+  "exception object".
+
+- An idiom for dealing with common error conditions is to either return `{ok,
+  Value}` or `{error, Reason}`, but this forces the caller to either use
+  a case statement to differentiate between the nominal and off-nominal
+  responses, or to use pattern matching and cause an exception to be raised.
+
+- The `try/catch` approach is used for conditions where errors are possible
+but rare, much like how we'd use `begin rescue end` in Ruby.
+
+- A catchall exception handler can be written like this:
+
+```erlang
+try Expr
+catch
+  _:_ -> ...
+end
+```
+
+- Even when using `try/catch`, it's possible to get the latest stack trace via
+  `erlang:get_stacktrace()`. (note: there is a comment on pp96 I don't fully
+  understand about last-call optimization, but I think it's to produce
+  cleaner stack traces, particularly in recursive functions)
+
+ - Erlang's design aesthetic is fail fast and noisily with a meaningful error
+   message, ideally logging to a permanent error log with enough information to
+   facilitate debugging later. Failures should not bubble up to the end user,
+   but the user should be notified that there was a problem. (NOTE: These seem
+   more like general philosophical points than Erlang issues, but maybe
+   we'll see more later in PE that show how Erlang facilitates this design
+   style???)
+
+
+
