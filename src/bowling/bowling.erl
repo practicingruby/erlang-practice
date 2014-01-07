@@ -1,6 +1,21 @@
 -module(bowling).
 -export([score/1, test/0]).
 
+score([])                          -> 0;
+score([{10}|T])                    -> strike(T) + score(T);
+score([{A,B}|T]) when 10 =:= A + B -> spare(T) + score(T);
+score([{A,B}|T])                   -> A + B + score(T).
+
+strike([])                   -> 0;
+strike([{10}])               -> 0;
+strike([{10}, {10}|_])       -> 30;
+strike([{10}, {Ball2, _}|_]) -> 20 + Ball2;
+strike([{Ball1, Ball2}|_])   -> 10 + Ball1 + Ball2.
+
+spare([])                -> 0;
+spare([{10}|_])          -> 20;
+spare([{NextBall, _}|_]) -> 10 + NextBall.
+
 test() -> 
   9  = score([{7, 2}]), 
 
@@ -24,38 +39,10 @@ test() ->
   %             30   30   30   30   29   20   20    30   30   30   
   279 = score([{10},{10},{10},{10},{10},{10},{9,1},{10},{10},{10},{10},{10}]),
 
+  %             30   30   30   30   29   20   20    29   20   20   
+  258 = score([{10},{10},{10},{10},{10},{10},{9,1},{10},{10},{9,1},{10}]),
+
+  %             30   30   30   30   29   20   20    29   20   20   
+  257 = score([{10},{10},{10},{10},{10},{10},{9,1},{10},{10},{9,1},{9,1}]),
+
   ok.
-
-score({bowling, L}) -> score(L);
-score([]) -> 0;
-score([H|T]) -> 
-  case H of
-    {A} -> %strike
-
-      [H1|T1] = T,
-
-      case H1 of
-        { B, C } -> A + B + C + score(T);
-        { B } -> 
-          case T1 of
-            []    -> 0;
-            _ ->
-              [H2|_] = T1,
-              case H2 of
-                { C, _ } -> A + B + C + score(T);
-                { C }    -> A + B + C + score(T)
-              end
-          end
-      end;
-
-    {A, B} when 10 =:= A + B -> %spare
-      [H1|_] = T,
-
-      case H1 of
-        {C, _} -> A + B + C + score(T);
-        {C}    -> A + B + C + score(T)
-      end;
-
-
-    {A, B} -> H, A + B + score(T)
-  end.

@@ -921,5 +921,40 @@ every message at least gets some sort of response.
 -------------------------------------------------------------------------------
 
 Messages pass their PID so that when a receive is executed, it is possible to
-process only the messages related to that PID. See pp187 and area_server example
+process only the messages related to that PID. See pp187 and `area_server` example
 for details.
+
+-------------------------------------------------------------------------------
+
+I am very impressed by the terseness of my refactored bowloing calculator,
+although I fear I've attempted to be a bit too clever by moving all the logic
+into pattern matching, or that maybe I just got lucky with the nature of
+the problem fitting well defined patterns.
+
+```erlang
+score([])                          -> 0;
+score([{10}|T])                    -> strike(T) + score(T);
+score([{A,B}|T]) when 10 =:= A + B -> spare(T) + score(T);
+score([{A,B}|T])                   -> A + B + score(T).
+
+strike([])                   -> 0;
+strike([{10}])               -> 0;
+strike([{10}, {10}|_])       -> 30;
+strike([{10}, {Ball2, _}|_]) -> 20 + Ball2;
+strike([{Ball1, Ball2}|_])   -> 10 + Ball1 + Ball2.
+
+spare([])                -> 0;
+spare([{10}|_])          -> 20;
+spare([{NextBall, _}|_]) -> 10 + NextBall.
+```
+
+It's definitely worth comparing the above to my original implementation to
+see how to "think in patterns", though. It's not where I started from,
+that's for sure, but maybe you always refactor towards patterns rather than
+starting with them in mind.
+
+Worth noting is that I'm not 100% sure my solution is bug-free, and there
+may be edge cases which break the existing implementation. But I haven't
+found issues yet.
+
+-------------------------------------------------------------------------------
