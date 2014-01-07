@@ -804,7 +804,7 @@ writing that code right now. Maybe look for someone else's work?
 
 ## January 7, 2014
 
-**Total Practice Time: 120mins**
+**Total Practice Time: 210mins**
 
 Current plan is to spend one more day on "sequential erlang" part of PE book,
 and wrap up cleanup on bowling calculator. If time permits, may begin
@@ -958,3 +958,6 @@ may be edge cases which break the existing implementation. But I haven't
 found issues yet.
 
 -------------------------------------------------------------------------------
+
+I got pretty far on initial modeling for dining philosophers, but will need
+to think through the logic and control flow tomorrow.
