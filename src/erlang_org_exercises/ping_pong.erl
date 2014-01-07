@@ -1,18 +1,23 @@
 -module(ping_pong).
 -export([start/1, loop/1]).
 
-start(Message) -> spawn(ping_pong, loop, [Message]).
+start(N) -> 
+  Ping = spawn(ping_pong, loop, [ping]),
+  Pong = spawn(ping_pong, loop, [pong]),
+
+  Ping ! { Pong, N },
+  done.
 
 loop(Message) ->
   receive
     {Client, N} ->
-      io:format("~p Received: ~s~n", [self(), Message]),
+      io:format("[~p] ~p Received: ~s ~n", [N, self(), Message]),
 
-      %% FIXME: Find out why this isn't working! %%
-      case N of
-        1    -> Client ! { self(), N -1 }, exit(self(), ok);
-        0    -> exit(self(), ok);
-        true -> Client ! { self(), N - 1 }
+      if 
+        N > 2   -> Client ! { self(), N - 1 }, loop(Message);
+        N =:= 2 -> Client ! { self(), N - 1 };
+        true -> void
       end
-  end,
-  loop(Message).
+  end.
+
+

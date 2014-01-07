@@ -809,3 +809,20 @@ writing that code right now. Maybe look for someone else's work?
 Current plan is to spend one more day on "sequential erlang" part of PE book,
 and wrap up cleanup on bowling calculator. If time permits, may begin
 work on Dining Philosophers, or at least start researching it.
+
+-------------------------------------------------------------------------------
+
+The problem with my ping/pong exercise was that I was using case incorrectly,
+via the `true -> ...` guard. Changing to `_ -> ...` fixed the problem. It turns
+out the use of `true -> ...` is for if statements, not case statments.
+
+-------------------------------------------------------------------------------
+
+My ping pong example is now working fine, but I'm unsure how to "gracefully
+terminate" an Erlang process. Is simply writing a terminating loop sufficient
+(as I did in this example), or do I need to explicit call exit? Or is it
+something else entirely. I can imagine that having processes accumulate in a
+zombie state would be a bad thing.
+
+
+
