@@ -28,16 +28,29 @@ and get help if necessary for style questions.
 4. Prepare questions, TODO lists, and exercises for the next
 day. Reflect on what was learned today. (30 mins)
 
-
 ## Practice Exercises
 
 ```
-[ ] Finish implementing the ping pong process example
-[ ] CH 8 exercises
-[ ] Refactor code from bowling calculator
-[ ] N-ring exercise
-[ ] N-star exercise
+[X] Finish implementing the ping pong process example.
+[ ] CH 10 exercises.
+[ ] CH 8 exercise 2.
 ```
+
+## Reading
+
+[ ] CH 12
+[ ] CH 13
+[ ] CH 9
+[ ] CH 10
+[ ] CH 7
+
+## Projects
+
+```
+[ ] Refactor code from bowling calculator
+[ ] Initial dining philosophers research
+```
+
 
 ## Preliminaries
 
@@ -59,7 +72,7 @@ day. Reflect on what was learned today. (30 mins)
 [X] Do PE Ch 2 exercises
 [X] Do PE Ch 3 exercises
 [X] Do PE Ch 4 exercises
-[ ] Do PE Ch 6 exercises
+[X] Do PE Ch 6 exercises
 [X] Learn the different statement separators (. , ;)
 [X] Figure out what a "function clause" is... does that
     mean a whole function, anything between punctuation, etc?
@@ -85,11 +98,4 @@ day. Reflect on what was learned today. (30 mins)
      in the past, but the process would be the same, just slower
      if I hadn't. Also note how I treated most examples as exercises,
      also note about asking for help)
-```
-
-## Projects
-
-```
-[ ] Implement the Dining Philosophers problem
-[ ] Implement the rover IRC bot game
 ```

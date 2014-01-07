@@ -567,7 +567,7 @@ Erlang's design aesthetic is fail fast and noisily with a meaningful error
 
 ## January 6, 2014
 
-**Total Practice Time: 120 mins **
+**Total Practice Time: 240 mins **
 
 Should have prepared my exercises better, because the ones I found at erlang.org
 are for the most part either similar to what I've already done in the PE book, 
@@ -804,7 +804,7 @@ writing that code right now. Maybe look for someone else's work?
 
 ## January 7, 2014
 
-**Total Practice Time: ..**
+**Total Practice Time: 120mins**
 
 Current plan is to spend one more day on "sequential erlang" part of PE book,
 and wrap up cleanup on bowling calculator. If time permits, may begin
@@ -829,3 +829,97 @@ terribly hard to understand. I will need to revisit it once I read about
 the related concepts in the PE book.
 
 -------------------------------------------------------------------------------
+
+I changed my mind about spending another day on sequential erlang (i.e. reading
+CH 9 (Types) and CH 10 (Compilation tools), because I think I'm going to need an
+understanding of Erlang's concurrency mechanisms sooner than I'll need to know
+those other topics. But I will wrap up Ch 8 before jumping ahead.
+
+(Chapters skipped so far: 7, 9, 10. All of which are worth going back to.
+Also only skimmed most of 5 because Map is only implemented in pre-release form)
+
+-------------------------------------------------------------------------------
+
+Erlang uses `==` and `/=` to compare floats to integers. Apparently this is its
+only purpose (although it'll work for equality comparison elsewhere too), and
+for everything else, `=:=` and `=/=` should be used. This sort-of makes sense
+because most Erlang objects are immutable and simple structures, so there isn't
+a need for a "fuzzy equality" operator most of the time. However, it's kind
+of weird that this is implemented as an operator rather than a BIF or something.
+I am curious whether there are any other possible uses, or if this is really
+the only one.
+
+-------------------------------------------------------------------------------
+
+The concept of *tuple modules* is very interesting, allowing for the creation of
+stateful modules and the use of adapter patterns:
+
+```erlang
+6> X = {bowling, [{1,2},{3,5}]}.
+{bowling,[{1,2},{3,5}]}
+7> X:score().
+```
+
+-------------------------------------------------------------------------------
+
+The `_` variable is an anonymous variable, which can be re-assigned to many
+times. However, `_SomeVariable` is NOT an anonymous variable, but is actually
+a regular variable with a special condition that prevents warnings from being
+generated when the variable is unused. This can be useful for debugging,
+or to name a variable we don't intend to use for the sake of clarity.
+
+-------------------------------------------------------------------------------
+
+The `somemodule:module_info()` function returns information that could be used
+for the same purpose as Ruby's `#methods` function. This may be useful for
+debugging/intropection:
+
+```erlang
+bowling:module_info().
+[{exports,[{test,0},
+           {score,1},
+           {module_info,0},
+           {module_info,1}]},
+ {imports,[]},
+ {attributes,[{vsn,[267186146844971636161971524223748788947]}]},
+ {compile,[{options,[]},
+           {version,"4.9.3"},
+           {time,{2014,1,7,17,13,19}},
+           {source,"/Users/seacreature/devel/erlang-practice/src/bowling/bowling.erl"}]}]
+```
+
+-------------------------------------------------------------------------------
+
+The three primitives for writing concurrent programs are `spawn`, `send (!)`, and
+`receive` (all of which we used in the ping pong example).
+
+-------------------------------------------------------------------------------
+
+`apply` is the Erlang equivalent to Ruby's send: 
+
+```erlang
+13> apply(lists, max, [[1,2,3,9,4]]).
+9
+```
+-------------------------------------------------------------------------------
+
+Calling `spawn` with a `Fun` does not allow for dynamic code upgrade, however
+using the `spawn(Mod, Func, Args)` form will ensure the latest code is
+always run. (CHECK THIS, COULD NOT CONFIRM BY EXPERIMENT)
+
+-------------------------------------------------------------------------------
+
+Because `Pid ! Msg` returns `Msg`, it's possible to chain message sends, i.e.
+`Pid1 ! Pid2 ! Pid3 | Msg`  will send a message to all three processes.
+
+-------------------------------------------------------------------------------
+
+Any message not matched by receive just sits in the mailbox of a process and is
+never received. For that reason, adding a catchall is necessary to ensure that
+every message at least gets some sort of response.
+
+-------------------------------------------------------------------------------
+
+Messages pass their PID so that when a receive is executed, it is possible to
+process only the messages related to that PID. See pp187 and area_server example
+for details.

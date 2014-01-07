@@ -26,6 +26,7 @@ test() ->
 
   ok.
 
+score({bowling, L}) -> score(L);
 score([]) -> 0;
 score([H|T]) -> 
   case H of
