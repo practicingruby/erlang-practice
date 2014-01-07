@@ -13,11 +13,9 @@ loop(Message) ->
     {Client, N} ->
       io:format("[~p] ~p Received: ~s ~n", [N, self(), Message]),
 
-      if 
-        N > 2   -> Client ! { self(), N - 1 }, loop(Message);
-        N =:= 2 -> Client ! { self(), N - 1 };
-        true -> void
+      case N of
+        1 -> done;
+        2 -> Client ! { self(), N - 1 }, done;
+        _ -> Client ! { self(), N - 1 }, loop(Message)
       end
   end.
-
-

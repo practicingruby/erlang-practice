@@ -822,7 +822,10 @@ My ping pong example is now working fine, but I'm unsure how to "gracefully
 terminate" an Erlang process. Is simply writing a terminating loop sufficient
 as I did in 3f384ff, or do I need to explicit call exit? Or is it
 something else entirely. I can imagine that having processes accumulate in a
-zombie state would be a bad thing.
+zombie state would be a bad thing. 
 
+I'm also not too confident in the code for this exercise, even though it isn't
+terribly hard to understand. I will need to revisit it once I read about
+the related concepts in the PE book.
 
-
+-------------------------------------------------------------------------------
