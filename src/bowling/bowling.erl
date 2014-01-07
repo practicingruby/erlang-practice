@@ -29,7 +29,7 @@ test() ->
 score([]) -> 0;
 score([H|T]) -> 
   case H of
-    {A} ->
+    {A} -> %strike
 
       [H1|T1] = T,
 
@@ -47,7 +47,7 @@ score([H|T]) ->
           end
       end;
 
-    {A, B} when 10 =:= A + B ->
+    {A, B} when 10 =:= A + B -> %spare
       [H1|_] = T,
 
       case H1 of

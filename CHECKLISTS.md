@@ -34,6 +34,7 @@ day. Reflect on what was learned today. (30 mins)
 ```
 [ ] Finish implementing the ping pong process example
 [ ] CH 8 exercises
+[ ] Refactor code from bowling calculator
 [ ] N-ring exercise
 [ ] N-star exercise
 ```

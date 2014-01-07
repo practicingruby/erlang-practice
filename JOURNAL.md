@@ -310,7 +310,7 @@ being a somewhat complex feature of Erlang.
 
 ## January 3, 2014
 
-**Total practice time: 150 minutes**
+**Total practice time: 180 minutes**
 
 Guards are limited to a subset of Erlang expressions, and user-defined functions
 cannot be called from them. This is to ensure that guards remain side-effect
@@ -792,4 +792,20 @@ a few minutes. :-/
 -------------------------------------------------------------------------------
 
 The code I wrote for my bowling score calculator has no error handling, and
-is a terrible mess of case statements, but it seems to be working! (80cdbea)
+is a terrible mess of case statements, but it seems to be working! (a9b3302)
+
+I will definitely work on cleaning up its code, but I'm not sure how many
+more features I will add to it before working on Dining Philosophers. This
+depends on how my book reading work goes tomorrow.
+
+It may also be a good exercise to compare the bowling calculator code to
+equivalent Ruby code, but I'm unsure whether I want to spend the time
+writing that code right now. Maybe look for someone else's work?
+
+## January 7, 2014
+
+**Total Practice Time: ..**
+
+Current plan is to spend one more day on "sequential erlang" part of PE book,
+and wrap up cleanup on bowling calculator. If time permits, may begin
+work on Dining Philosophers, or at least start researching it.
