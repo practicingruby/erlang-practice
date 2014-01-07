@@ -6,11 +6,12 @@ Make sure to have these ready the night before, pick stuff
 that you can work on right away without having to study 
 in advance. They can either be book exercises or stuff
 from other sources, but they should be 
-self-verifiable for correctness.
+self-verifiable for correctness. Goal is not to finish
+but just to learn as much as possible.
 
 See also: http://www.erlang.org/course/exercises.html
 
-2. Work through book reading and more exercises (90 mins)
+2. Work through book reading and book exercises (90 mins)
 
 Jumping around chapters is OK, but reading whole chapters
 at a time is encouraged. Read what is most related to
@@ -26,6 +27,16 @@ and get help if necessary for style questions.
 
 4. Prepare questions, TODO lists, and exercises for the next
 day. Reflect on what was learned today. (30 mins)
+
+
+## Practice Exercises
+
+```
+[ ] Finish implementing the ping pong process example
+[ ] CH 8 exercises
+[ ] N-ring exercise
+[ ] N-star exercise
+```
 
 ## Preliminaries
 
