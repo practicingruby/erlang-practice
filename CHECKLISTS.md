@@ -32,7 +32,7 @@ day. Reflect on what was learned today. (30 mins)
 
 ```
 [X] Finish implementing the ping pong process example.
-[ ] CH 10 exercises.
+[ ] CH 12 exercises.
 [ ] CH 8 exercise 2.
 ```
 
@@ -47,8 +47,9 @@ day. Reflect on what was learned today. (30 mins)
 ## Projects
 
 ```
-[ ] Refactor code from bowling calculator
-[ ] Initial dining philosophers research
+[X] Refactor code from bowling calculator
+[X] Initial dining philosophers research
+[ ] Functionally complete dining philosophers program
 ```
 
 

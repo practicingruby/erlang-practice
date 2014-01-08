@@ -961,3 +961,55 @@ found issues yet.
 
 I got pretty far on initial modeling for dining philosophers, but will need
 to think through the logic and control flow tomorrow.
+
+-------------------------------------------------------------------------------
+
+Because I have plenty of possible exercises to work on tomorrow, I have decided
+to spend my last half hour finishing up reading PE CH 12.
+
+-------------------------------------------------------------------------------
+
+Processes are very computationally inexpensive to spawn, taking up only a few
+microseconds per process. Erlang's default system limit for number of processes
+is 262,144, but it can be increased arbitrarily via the `erl +P` flag. The
+example on pp189 that illustrates this point a lso includes some useful examples
+of doing benchmarking in erlang, and maybe even a hint at how to make a process
+wait until a specific message is received.
+
+-------------------------------------------------------------------------------
+
+pp191-193 cover timeout semantics that we've already seen briefly while looking
+at other code samples.
+
+-------------------------------------------------------------------------------
+
+pp194 gives a detailed explanation of message processing semantics, basically
+unmatched messages will be saved in the mailbox until some new message is
+matched, and then they will all be retried (See if we can apply this concept to
+Dining Philosophers). This is probably a good deal more complex than the actor
+models we've implemented in Practicing Ruby, but I imagine this is how Celluloid
+works. May be worth investigating further.
+
+-------------------------------------------------------------------------------
+
+It is possible to use `register` to set up a globally available atom for sending
+messages to a particular process:
+
+```erlang
+> register(area, spawn(area_server, loop, [])).
+> area ! { rectangle, 10, 3 }
+```
+
+Because `register` can also be used internally within a module, it's possible
+for a module to create a process and register it, effectively creating a
+singleton object. (see clock example).
+
+-------------------------------------------------------------------------------
+
+Remember when using recursion for looping in Erlang to always make the recursive
+call the last instruction called, otherwise TCO won't work and you'll end
+up with a stack error.
+
+-------------------------------------------------------------------------------
+
+Joe has a template for concurrent programming boilerplate on pp197
