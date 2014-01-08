@@ -804,7 +804,7 @@ writing that code right now. Maybe look for someone else's work?
 
 ## January 7, 2014
 
-**Total Practice Time: 210mins**
+**Total Practice Time: 240mins**
 
 Current plan is to spend one more day on "sequential erlang" part of PE book,
 and wrap up cleanup on bowling calculator. If time permits, may begin
