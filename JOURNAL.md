@@ -1119,7 +1119,7 @@ http://lfhck.com/question/282512/erlang---dining-philosophers-errors
 
 ## January 9, 2014
 
-**Total Practice Time: .. mins**
+**Total Practice Time: 240 mins**
 
 Building a ring is a fascinating academic exercise, but I'm unsure about
 how often you'd need to build low-level structures like this in Erlang.
