@@ -1211,4 +1211,27 @@ error handling.
 Error handing primitives are described in pp206 and pp207, but I imagine these
 also are described in the API documentation.
 
+-------------------------------------------------------------------------------
 
+I have pieced together a Dining Philosophers solution that seems to work,
+but it's probably using an approach that is not elegant in Erlang
+(resource hierarchy). I've reached out over Twitter to see if I can
+get a code review on it.
+
+Still, an interesting take-away from this was the realization that
+symmetrical callbacks combined with nested receives are a way to
+ensure that communications between two objects are atomic.
+
+I am coming to the realization that although Erlang gives you concurrency
+by default and minimizes the risk associated with it, it's still difficult
+to get in a concurrent mindset. It's hard for me to validate the
+correctness of my own code, and it's also hard to get into a thought
+process of "concurrent by default" rather than "sequential by default".
+This has caused me to write a lot of buggy code already.
+
+For example, I keep forgetting that message sends are non-blocking, and
+so you can't just assume that a message will be received and process
+BEFORE the next line of code is executed. This may not be hard to remember
+with some practical experience, but coming from a decade of working
+in Ruby where the opposite is true, it's hard to fight my old
+mental model.
