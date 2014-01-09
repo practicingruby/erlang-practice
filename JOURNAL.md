@@ -1235,3 +1235,15 @@ BEFORE the next line of code is executed. This may not be hard to remember
 with some practical experience, but coming from a decade of working
 in Ruby where the opposite is true, it's hard to fight my old
 mental model.
+
+-------------------------------------------------------------------------------
+
+For my last day of "deliberate practice week", I plan to start with an exercise
+or two from Chapter 13, read through Chapter 14, and then spend a little bit of
+time prototyping the IRC rover project (no idea how far I'll get with that).
+
+Then I'll take Saturday off and start my writeup Sunday, Monday, and Tuesday.
+
+-------------------------------------------------------------------------------
+
+

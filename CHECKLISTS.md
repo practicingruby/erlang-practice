@@ -63,7 +63,8 @@ together as possible.
 ```
 [X] Refactor code from bowling calculator
 [X] Initial dining philosophers research
-[ ] Functionally complete dining philosophers program
+[X] Functionally complete dining philosophers program
+[ ] Rough prototype of IRC rover stuff 
 ```
 
 
