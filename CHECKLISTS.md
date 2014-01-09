@@ -4,18 +4,21 @@
 
 Make sure to have these ready the night before, pick stuff
 that you can work on right away without having to study 
-in advance. They can either be book exercises or stuff
-from other sources, but they should be 
-self-verifiable for correctness. Goal is not to finish
-but just to learn as much as possible.
+in advance. 
 
-See also: http://www.erlang.org/course/exercises.html
+They can either be book exercises or stuff
+from other sources, but they should be self-verifiable
+for correctness. Goal is not to finish but just to 
+learn as much as possible.
 
 2. Work through book reading and book exercises (90 mins)
 
 Jumping around chapters is OK, but reading whole chapters
 at a time is encouraged. Read what is most related to
-the projects you're working on.
+the projects you're working on. 
+
+Give reading a higher priority over exercises during this 
+time, and do only exercises related to the current reading.
 
 3. Work on projects (90 mins)
 
@@ -25,20 +28,31 @@ code first, before worrying about correct code. But once you
 have a working solution, figure out how to make it right,
 and get help if necessary for style questions.
 
-4. Prepare questions, TODO lists, and exercises for the next
-day. Reflect on what was learned today. (30 mins)
+4. Review today's work and do next day's prep work (30 mins)
+
+Prepare questions, TODO lists, and exercises for the next
+day. Reflect on what was learned today, possibly looking
+up tangential points that you didn't have time for in the
+day, or seek solutions to exercises already published online,
+or write notes asking for help. 
+
+Try to do all four hours in a single day if possible,
+otherwise try to do 1+2 and 3+4 in two sessions as close
+together as possible.
 
 ## Practice Exercises
 
 ```
 [X] Finish implementing the ping pong process example.
-[ ] CH 12 exercises.
+[X] CH 12 exercise 1
+[X] CH 12 exercise 2
+[X] CH 12 exercise 3
 [ ] CH 8 exercise 2.
 ```
 
 ## Reading
 
-[ ] CH 12
+[X] CH 12
 [ ] CH 13
 [ ] CH 9
 [ ] CH 10

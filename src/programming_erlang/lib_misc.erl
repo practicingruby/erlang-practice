@@ -1,11 +1,20 @@
 -module(lib_misc).
 -export([for/3, qsort/1, pythag/1, perms/1, 
          max/2, odds_and_evens/1, my_tuple_to_list/1,
-         my_time_func/1, my_date_func/0, sqrt/1, my_file_read/1]).
+         my_time_func/1, my_date_func/0, sqrt/1, my_file_read/1,
+         on_exit/2]).
 
 for(Max, Max, F) -> [F(Max)];
 for(I, Max, F)   -> [F(I) | for(I+1, Max, F)].
 
+on_exit(Pid, Fun) ->
+  spawn(fun() ->
+          Ref = monitor(process, Pid),
+          receive
+            {'DOWN', Ref, process, Pid, Why} ->
+              Fun(Why)
+          end
+      end).
 
 my_file_read(File) ->
   case file:read_file(File) of

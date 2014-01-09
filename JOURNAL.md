@@ -1013,3 +1013,202 @@ up with a stack error.
 -------------------------------------------------------------------------------
 
 Joe has a template for concurrent programming boilerplate on pp197
+
+## January 8, 2014
+
+**Total Practice Time: 120 mins**
+
+Need to look deeper into how `spawn(Fun)` works, i.e. how to get it to loop.
+
+-------------------------------------------------------------------------------
+
+The first exercise of Ch12 (creating a self-registering `start` function) is
+complicated, because it can result in a race condition, and avoiding that
+is not discussed in the chapter.
+
+Searching for a solution to this online, I found this point from 
+"Learn You Some Erlang":
+
+> You might have heard that Erlang is usually free of race conditions or 
+deadlocks and makes parallel code safe. This is true in many circumstances,
+but never assume your code is really that safe. Named processes are only 
+one example of the multiple ways in which parallel code can go wrong.
+
+> Other examples include access to files on the computer (to modify them), 
+updating the same database records from many different processes, etc.
+
+Another thread on the topic is found here:
+http://forums.pragprog.com/forums/27/topics/124
+
+And there is further discussion here:
+http://erlang.2086793.n4.nabble.com/Programming-Erlang-Exercise-8-11-td2105249.html
+
+Here's my understanding of the solution I found in those threads:
+
+* It's not possible to use `whereis` to verify that a process has been
+registered or not, because both processes could pass that test BEFORE their call
+to `register` is processed. If one process completes the register process, the
+other will fail, but only after `start()` returns, which is not what the
+exercise calls for.
+
+* To verify success or failure BEFORE `start()` returns, the spawned processes
+communicates back to the process that spawned them about their status. The
+parent process uses `receive` to wait for a response, ensuring that failure is
+communicated at the time the method returns, not after.
+
+This exercise was a good one because it brought me deep into Erlang edge cases,
+but it's an "unfair one" because there isn't much in PE up until this point to
+give you the information you need to know.
+
+-------------------------------------------------------------------------------
+
+```
+1> Foo = fun(F, X) -> F(F, X) end.
+#Fun<erl_eval.12.113037538>
+2> Foo(Foo, a).
+<...infinite loop!>
+```
+
+SOURCE: http://stackoverflow.com/a/867525
+
+-------------------------------------------------------------------------------
+
+A brief investigation into Erlang plotting libraries (for possible use in
+Exercise 12.2 reveals recommendations to use R, Google Charts API, or various
+javascript libraries). This isn't especially surprising to me.
+
+https://groups.google.com/forum/#!topic/erlang-programming/p1ZVDCeOc4Q
+
+-------------------------------------------------------------------------------
+
+I don't really know what to make of CH 12 exercise 2 except that per-process
+spawn time is very small (a few microseconds) and stays that way no matter
+how many processes you create. Because I do not need web scale, I don't really
+care about this point!
+
+-------------------------------------------------------------------------------
+
+Erlang's error handling philosophy emphasizes remote error detection and error
+handling, i.e. dealing with recovering from failures after they've occurred.
+This is a *corrective* rather than *defensive* coding style.
+
+In essence this means rather than catching an exception in the same process it
+gets raised in, you let the process die and some other process takes care
+of cleaning up after it.
+
+Support for this coding style is built into Erlang at the very low-level,
+it is easy for process groups to observe each other.
+
+Two key phrases: "Let some other process fix the error", and "Let it crash".
+
+-------------------------------------------------------------------------------
+
+Erlang programs are often built in two parts: the part that solves the problem
+(with as little defensive code as possible) and the part that monitors and deals
+with errors (which may end up being generic).
+
+-------------------------------------------------------------------------------
+
+If I get stuck on Dining Philosophers, I may look at this (partial) solution:
+http://humani.st/erlang-circular-process-communication/
+
+It uses Chandry/Misra solution, which seems well suited to Erlang.
+
+Also possible to look at this one, which uses a waiter:
+http://lfhck.com/question/282512/erlang---dining-philosophers-errors
+
+## January 9, 2014
+
+**Total Practice Time: .. mins**
+
+Building a ring is a fascinating academic exercise, but I'm unsure about
+how often you'd need to build low-level structures like this in Erlang.
+My guess is not that often, but if I'm wrong, I'm not sure that I'd want
+to be spending so much time on basic data structures in day-to-day coding.
+
+-------------------------------------------------------------------------------
+
+Never realized up until this point that functions with different arities are
+treated as distinct from one another in Erlang. (I.e. you put a period at the
+end of each definition)
+
+-------------------------------------------------------------------------------
+
+Finding pencil-and-paper doodling more useful in Erlang than Ruby, but
+maybe it's just the type of problems I'm solving and lack of language
+familiarity.
+
+-------------------------------------------------------------------------------
+
+At this stage I've gone from being very confused about Erlang syntax errors,
+to still making a lot of them but being able to quickly fix them when they
+occur. Still on the fence about my feelings on Erlang syntax, a notoriously
+controversial topic. I think a lack of familiarity is at least partly
+to blame for people's dislike of the syntax, but there may be some
+genuine usability concerns as well.
+
+-------------------------------------------------------------------------------
+
+Erlang distinguishes between normal processes and system processes. A normal
+process can be turned into a system process by evaluating the BIF
+`process_flag(trap_exit, true).` I suppose the book will explain how
+this works later, but if not:
+
+http://stackoverflow.com/a/6720891
+
+-------------------------------------------------------------------------------
+
+The following error handling terms are defined on pp202 - pp203:
+
+* Process types
+* Links
+* Link sets
+* Monitors
+* Messages and error signals
+* Receipt of an error signal
+* Explicit error signals
+* Untrappable exit signals
+
+All of these discuss the various ways that processes can be linked together
+and notify each other of failures.
+
+-------------------------------------------------------------------------------
+
+`exit(Why)` will terminate the process that calls it if the resulting exception
+is not caught, and broadcast its status to its link set.
+
+`exit(Pid, Why)` will send an exit signal to another process WITHOUT killing
+the process that called it. I assume this is used to either allow the linked process
+to decide whether or not to actually kill the process that sent the message
+(e.g. a soft kill), or to force exit cleanup behavior to happen even when
+the process is still running.
+
+Hopefully the book will explain this later.
+
+-------------------------------------------------------------------------------
+
+Calling `exit(Pid, kill)` will terminate a process and bypass normal error
+signal processing.
+
+-------------------------------------------------------------------------------
+
+Linked processes live or die together: An exit signal in one will propagate
+to the others and take them down as well. Promoting processes to system
+processes will allow then to handle exit signals as messages, which can
+be used to place a firewall between parts of the system designed to isolate
+crashing processes from ones that aren't meant to crash together.
+
+When using monitoring, the monitored process will notify its monitor when it
+crashes, but not the other way around. The signal passed is not an exit message
+but a down message, which means that monitor processes do not need to
+become system processes to avoid crashing.
+
+Links are used for symmetric error handling, and monitors for asymetric 
+error handling.
+
+-------------------------------------------------------------------------------
+
+Error handing primitives are described in pp206 and pp207, but I imagine these
+also are described in the API documentation.
+
+
