@@ -12,20 +12,20 @@ rpc(Pid, Request) ->
 
 loop(MapData, Row, Col) ->
   receive 
-    {Caller, snapshot} ->
-      Caller ! { self(), {snapshot, snapshot(MapData, Row, Col)}},
+    {Caller, MsgID, snapshot} ->
+      Caller ! { self(), MsgID, {snapshot, snapshot(MapData, Row, Col)}},
       loop(MapData, Row, Col);
-    {Caller, move_north} ->
-      Caller ! { self(), {move_north, Row-1, Col}},
+    {Caller, MsgID, move_north} ->
+      Caller ! { self(), MsgID, {move_north, Row-1, Col}},
       loop(MapData, Row-1, Col);
-    {Caller, move_south} ->
-      Caller ! { self(), {move_south, Row+1, Col}},
+    {Caller, MsgID, move_south} ->
+      Caller ! { self(), MsgID, {move_south, Row+1, Col}},
       loop(MapData, Row+1, Col);
-    {Caller, move_east} ->
-      Caller ! { self(), {move_east, Row, Col+1}},
+    {Caller, MsgID, move_east} ->
+      Caller ! { self(), MsgID, {move_east, Row, Col+1}},
       loop(MapData, Row, Col+1);
-    {Caller, move_west} ->
-      Caller ! { self(), {move_west, Row, Col-1}},
+    {Caller, MsgID, move_west} ->
+      Caller ! { self(), MsgID, {move_west, Row, Col-1}},
       loop(MapData, Row, Col-1)
   end.
 

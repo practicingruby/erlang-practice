@@ -1246,7 +1246,7 @@ Then I'll take Saturday off and start my writeup Sunday, Monday, and Tuesday.
 
 ## January 10, 2014
 
-**Total practice time: ...**
+**Total practice time: 240 minutes**
 
 Last day of "deliberate practice week", excited to get started!
 
@@ -1399,3 +1399,9 @@ everything just runs in one big recursive loop. Try to point this out in
 the article.
 
 -------------------------------------------------------------------------------
+
+Because this is the last day of my practice week, I'm going to spend my last
+30 minutes continuing to work on the rover project.
+
+-------------------------------------------------------------------------------
+
