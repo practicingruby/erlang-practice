@@ -1359,3 +1359,43 @@ is that all `nl()` does is make the compiled module available, but it doesn't
 do any networking magic, so you still need `rpc`. That would be the least
 surprising behavior, at least.
 
+-------------------------------------------------------------------------------
+
+Made a huge mess of code in the world map reader for the rover project. Unsure
+if Erlang is fighting me here, or if I'm just doing things in an inelegant way.
+
+-------------------------------------------------------------------------------
+
+A general recurring issue for me is that it seems tedious to test message
+passing until a proper client is set up. The `rpc` pattern Joe uses seems like 
+a bit of a hack, but I don't have a better alternative idea.
+
+-------------------------------------------------------------------------------
+
+I do not know how to gracefully recover from a stuck process, i.e. if there is
+a message that's not being processed and things hang, I don't know how to get
+back to a clean state and will always CTRL+C and abort, which is hugely
+annoying, especially when I don't have cross-session history.
+
+-------------------------------------------------------------------------------
+
+This exercise has given me a very visceral lesson in the differences between:
+
+* Reading code
+* Running example code
+* Trying out coding exercises
+* Working on toy projects
+* Working on real projects
+
+Learning a language is an N-dimensional activity, it's surprising that we
+tend to have a much more simplistic view of what is involved (or at least I do).
+So much of a willingness to theorize and discuss that which we have very little
+practical experience with.
+
+-------------------------------------------------------------------------------
+
+The fact that Erlang is stateless is almost not an issue when you realize that
+everything just runs in one big recursive loop. Try to point this out in 
+the article.
+
+-------------------------------------------------------------------------------
