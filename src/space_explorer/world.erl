@@ -1,14 +1,8 @@
 -module(world).
--export([start/1, loop/3, rpc/2]).
+-export([start/1, loop/3]).
 
 start(Filename) ->
   spawn(world, loop, [read(Filename), 11, 13]).
-
-rpc(Pid, Request) ->
-  Pid ! { self(), Request },
-  receive
-    {Pid, Response} -> Response
-  end.
 
 loop(MapData, Row, Col) ->
   receive 
