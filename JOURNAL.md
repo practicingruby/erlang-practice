@@ -1244,6 +1244,118 @@ time prototyping the IRC rover project (no idea how far I'll get with that).
 
 Then I'll take Saturday off and start my writeup Sunday, Monday, and Tuesday.
 
+## January 10, 2014
+
+**Total practice time: ...**
+
+Last day of "deliberate practice week", excited to get started!
+
 -------------------------------------------------------------------------------
 
+Using a combination of `spawn` and `spawn_link`, you can make a set of processes
+that all die together. You can then use a monitor to be notified when any
+these worker processes fail. (pp209)
+
+-------------------------------------------------------------------------------
+
+Example of a keep-alive on pp209, basically you combine `register`, `spawn`,
+and the `on_exit` helper function created in this chapter to re-run
+register/spawn whenever a process fails. There is potential for a race condition
+in this code (it appears that whenever register is in the mix, that's the case).
+
+-------------------------------------------------------------------------------
+
+Ch13 exercise #1 was a great one. Monitoring, timers and neat process management
+stuff all jammed into a single code sample:
+
+```erlang
+-module(errors).
+-export([my_spawn/3]).
+
+my_spawn(Mod, Func, Args) ->
+  Pid = spawn(Mod, Func, Args),
+  {T1, _} = statistics(wall_clock),
+
+  spawn(fun() ->
+    Ref = monitor(process, Pid),
+    receive
+      { 'DOWN', Ref, process, Pid, Why } ->
+        io:format("~p went down with reason: ~p~n", [Pid, Why]),
+
+        {T2, _} = statistics(wall_clock),
+
+        io:format("~p was alive for ~p seconds~n", [Pid, (T2-T1)/1000])
+    end
+  end),
+
+  Pid.
+```
+
+-------------------------------------------------------------------------------
+
+Erlang has two distribution models, distributed Erlang (probably similiar to
+DRb?) and socket-based distribution. The former is for trusted environments
+(i.e. internal networks behind a firewall) and the latter can be used
+in untrusted environments, but is less powerful.
+
+-------------------------------------------------------------------------------
+
+Order for writing distributed erlang programs:
+
+1. Write and test the code in a regular, non-distributed session.
+2. Test the program on two different nodes running on the same computer.
+3. Test the program on two nodes running on two different computers (can be on
+the same LAN or across the internet).
+
+-------------------------------------------------------------------------------
+
+`put` / `get` can be used to read and write values to the "process dictionary",
+which roughly serves the same purpose as Ruby's instance variables, and comes
+with the side effects you would expect from that. I wonder what the difference
+would be to use stateful modules instead, if any? (Is it even possible???)
+
+-------------------------------------------------------------------------------
+
+Communicating between different Erlang nodes the same machine is insanely
+simple. Basically: 
+
+* run `erl -sname A` register a process on node A
+* register some process
+* run `erl -sname B`
+* use `rpc:call` to call remote methods on node A from node B
+
+-------------------------------------------------------------------------------
+
+Communicating over a local network is similarly easy, though the book hints
+that direct access by IP is not allowed, you must resolve by DNS, which
+means setting relevant entries in `/etc/hosts` in development. 
+
+The authentication system is cookie-based, and cookies need to match
+for communication to succeed. You also need to use a name that
+the computer responds to (i.e. `bodhi` for my laptop).
+
+I didn't bother to check, but the book mentions each node should also
+be running the same version of Erlang. This makes sense, because I'm
+sure whatever serialization format that is being used under the
+hood as well as the network protocol can be changed between versions.
+
+-------------------------------------------------------------------------------
+
+I *think* doing a similar name server example in Ruby via DRb would be as
+easy, but it'd be interesting to see whether that's true or not. As programs got
+more complex, I imagine Erlang will be a better language for distributed
+programs because of its concurrency model and protected state.
+
+-------------------------------------------------------------------------------
+
+Interestingly enough, p217 says you need the code for the module on both
+machines, but I didn't do that and it still worked!
+
+I spent a lot of time playing with `nl()` but didn't understand how it was
+meant to work based on the notes in the book. I thought it *might* be used
+for making it possible to call commands on a module remotely without using
+`rpc:call`, but could not get a successful example running. My best guess
+is that all `nl()` does is make the compiled module available, but it doesn't
+do any networking magic, so you still need `rpc`. That would be the least
+surprising behavior, at least.
 
